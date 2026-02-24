@@ -1,12 +1,13 @@
 'use client';
 
-import { ArrowRight, Sparkles, Globe, Smartphone, Monitor, Search, Palette, Code, CheckCircle, Rocket, ExternalLink } from 'lucide-react';
-import { useEffect, useRef } from 'react';
+import { ArrowRight, Sparkles, Globe, Smartphone, Monitor, Search, Palette, Code, CheckCircle, Rocket, ExternalLink, ChevronLeft, ChevronRight, Target, Eye, Award } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
 export default function Home() {
   const pageRef = useRef<HTMLDivElement>(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -25,6 +26,75 @@ export default function Home() {
 
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % 5);
+    }, 6000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const slides = [
+    {
+      badge: 'Innovation Digitale en Afrique',
+      title: 'Construisons le futur digital de l\'Afrique',
+      description: 'SyliDigit accompagne les entreprises dans leur transformation digitale avec des solutions modernes, performantes et évolutives.',
+      image: 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=1600',
+      button1Text: 'Nos Services',
+      button1Link: '/services',
+      button2Text: 'Nous contacter',
+      button2Link: '/contact'
+    },
+    {
+      badge: 'Notre Mission',
+      title: 'Transformer l\'Afrique par le digital',
+      description: 'Accompagner les entreprises africaines dans leur transformation digitale en offrant des solutions sur mesure qui créent de la valeur durable.',
+      image: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1600',
+      button1Text: 'En savoir plus',
+      button1Link: '/a-propos',
+      button2Text: 'Nos projets',
+      button2Link: '/portfolio'
+    },
+    {
+      badge: 'Notre Vision',
+      title: 'Le partenaire digital de référence en Afrique',
+      description: 'Devenir le leader en Afrique de l\'Ouest en créant des solutions technologiques qui transforment les entreprises et améliorent la vie des citoyens.',
+      image: 'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=1600',
+      button1Text: 'Notre vision',
+      button1Link: '/a-propos',
+      button2Text: 'Contactez-nous',
+      button2Link: '/contact'
+    },
+    {
+      badge: 'Nos Valeurs',
+      title: 'Excellence, Passion, Innovation',
+      description: 'Nous visons l\'excellence dans chaque projet, guidés par notre passion pour la technologie et un engagement constant vers l\'innovation.',
+      image: 'https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1600',
+      button1Text: 'Découvrir nos valeurs',
+      button1Link: '/a-propos',
+      button2Text: 'Travailler avec nous',
+      button2Link: '/contact'
+    },
+    {
+      badge: 'Nos Services',
+      title: 'Des solutions digitales complètes',
+      description: 'Développement web, applications mobiles, logiciels desktop - toutes les solutions dont votre entreprise a besoin pour réussir sa transformation digitale.',
+      image: 'https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg?auto=compress&cs=tinysrgb&w=1600',
+      button1Text: 'Voir tous nos services',
+      button1Link: '/services',
+      button2Text: 'Demander un devis',
+      button2Link: '/contact'
+    }
+  ];
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  };
 
   const services = [
     {
@@ -72,44 +142,105 @@ export default function Home() {
 
   return (
     <div ref={pageRef}>
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-green-50 via-emerald-50/30 to-yellow-50/20">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-green-400/20 to-emerald-500/20 rounded-full blur-3xl animate-float"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-yellow-400/20 to-green-500/20 rounded-full blur-3xl animate-float-delayed"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-full blur-3xl animate-pulse-slow"></div>
-        </div>
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {slides.map((slide, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              currentSlide === index ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            <Image
+              src={slide.image}
+              alt={slide.title}
+              fill
+              className="object-cover"
+              priority={index === 0}
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-green-900/60 via-emerald-900/50 to-green-800/60"></div>
+            <div className="absolute inset-0 overflow-hidden">
+              <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-green-400/10 to-emerald-500/10 rounded-full blur-3xl animate-float"></div>
+              <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-yellow-400/10 to-green-500/10 rounded-full blur-3xl animate-float-delayed"></div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-green-500/5 to-emerald-500/5 rounded-full blur-3xl animate-pulse-slow"></div>
+            </div>
+          </div>
+        ))}
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 text-center">
-          <div className="fade-in opacity-0 translate-y-8 transition-all duration-1000">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full shadow-lg mb-8 border border-green-200/50">
+          <div
+            key={`badge-${currentSlide}`}
+            className="fade-in opacity-0 translate-y-8 transition-all duration-1000 animate-in"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full shadow-lg mb-8 border border-green-200/50">
               <Sparkles className="w-4 h-4 text-green-600" />
-              <span className="text-sm font-medium text-green-800">Innovation Digitale en Afrique</span>
+              <span className="text-sm font-medium text-green-800">{slides[currentSlide].badge}</span>
             </div>
           </div>
 
-          <h1 className="fade-in opacity-0 translate-y-8 transition-all duration-1000 delay-200 text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-green-700 via-emerald-600 to-green-500 bg-clip-text text-transparent leading-tight">
-            Construisons le futur digital de l'Afrique
+          <h1
+            key={`title-${currentSlide}`}
+            className="fade-in opacity-0 translate-y-8 transition-all duration-1000 delay-200 animate-in text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500 bg-clip-text text-transparent leading-tight drop-shadow-2xl"
+            style={{ textShadow: '0 0 40px rgba(250, 204, 21, 0.5)' }}
+          >
+            {slides[currentSlide].title}
           </h1>
 
-          <p className="fade-in opacity-0 translate-y-8 transition-all duration-1000 delay-400 text-xl md:text-2xl text-gray-700 mb-12 max-w-3xl mx-auto leading-relaxed">
-            SyliDigit accompagne les entreprises dans leur transformation digitale avec des solutions modernes, performantes et évolutives.
+          <p
+            key={`desc-${currentSlide}`}
+            className="fade-in opacity-0 translate-y-8 transition-all duration-1000 delay-400 animate-in text-xl md:text-2xl text-white mb-12 max-w-3xl mx-auto leading-relaxed drop-shadow-lg"
+          >
+            {slides[currentSlide].description}
           </p>
 
-          <div className="fade-in opacity-0 translate-y-8 transition-all duration-1000 delay-600 flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div
+            key={`buttons-${currentSlide}`}
+            className="fade-in opacity-0 translate-y-8 transition-all duration-1000 delay-600 animate-in flex flex-col sm:flex-row gap-4 justify-center items-center"
+          >
             <Link
-              href="/services"
+              href={slides[currentSlide].button1Link}
               className="group px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl hover:shadow-green-500/50 hover:scale-105 transition-all duration-300 flex items-center gap-2"
             >
-              Nos Services
+              {slides[currentSlide].button1Text}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
-              href="/contact"
-              className="px-8 py-4 border-2 border-green-600 text-green-700 rounded-xl font-semibold hover:bg-green-50 hover:scale-105 transition-all duration-300 backdrop-blur-sm"
+              href={slides[currentSlide].button2Link}
+              className="px-8 py-4 border-2 border-white text-white rounded-xl font-semibold hover:bg-white/10 hover:scale-105 transition-all duration-300 backdrop-blur-sm"
             >
-              Nous contacter
+              {slides[currentSlide].button2Text}
             </Link>
           </div>
+        </div>
+
+        <button
+          onClick={prevSlide}
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full transition-all duration-300 hover:scale-110"
+          aria-label="Slide précédent"
+        >
+          <ChevronLeft className="w-6 h-6 text-white" />
+        </button>
+
+        <button
+          onClick={nextSlide}
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full transition-all duration-300 hover:scale-110"
+          aria-label="Slide suivant"
+        >
+          <ChevronRight className="w-6 h-6 text-white" />
+        </button>
+
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                currentSlide === index
+                  ? 'bg-green-500 w-8'
+                  : 'bg-white/50 hover:bg-white/80'
+              }`}
+              aria-label={`Aller au slide ${index + 1}`}
+            />
+          ))}
         </div>
       </section>
 
