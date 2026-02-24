@@ -1,10 +1,14 @@
+'use client';
+
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation();
+  const pathname = usePathname();
 
   const navItems = [
     { label: 'Accueil', path: '/' },
@@ -16,19 +20,21 @@ export default function Header() {
   ];
 
   const isActive = (path: string) => {
-    return location.pathname === path;
+    return pathname === path;
   };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-green-200/30 shadow-lg">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <Link
-          to="/"
+          href="/"
           className="flex items-center gap-2 hover:opacity-80 transition-opacity"
         >
-          <img
+          <Image
             src="/SyliDigit_logo.jpeg"
             alt="SyliDigit"
+            width={48}
+            height={48}
             className="h-12 w-auto"
           />
         </Link>
@@ -37,7 +43,7 @@ export default function Header() {
           {navItems.map((item) => (
             <Link
               key={item.path}
-              to={item.path}
+              href={item.path}
               className={`font-medium transition-all duration-300 text-sm relative ${
                 isActive(item.path)
                   ? 'text-green-700'
@@ -69,7 +75,7 @@ export default function Header() {
           {navItems.map((item) => (
             <Link
               key={item.path}
-              to={item.path}
+              href={item.path}
               onClick={() => setIsOpen(false)}
               className={`block w-full text-left py-2 font-medium hover:pl-2 transition-all duration-300 ${
                 isActive(item.path)

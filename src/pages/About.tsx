@@ -1,3 +1,5 @@
+'use client';
+
 import { Target, Eye, MapPin, Users, Award, Heart, Zap, Globe2, HeadphonesIcon, Layers, TrendingUp } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 

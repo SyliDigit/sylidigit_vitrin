@@ -1,4 +1,7 @@
+'use client';
+
 import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Footer() {
   const scrollToSection = (id: string) => {
@@ -10,9 +13,11 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid md:grid-cols-4 gap-12 mb-12">
           <div>
-            <img
+            <Image
               src="/SyliDigit_logo.jpeg"
               alt="SyliDigit"
+              width={64}
+              height={64}
               className="h-16 w-auto mb-4"
             />
             <p className="text-green-200 leading-relaxed mb-4">

@@ -1,6 +1,9 @@
+'use client';
+
 import { ArrowRight, Sparkles, Globe, Smartphone, Monitor, Search, Palette, Code, CheckCircle, Rocket, ExternalLink } from 'lucide-react';
 import { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Home() {
   const pageRef = useRef<HTMLDivElement>(null);
@@ -94,14 +97,14 @@ export default function Home() {
 
           <div className="fade-in opacity-0 translate-y-8 transition-all duration-1000 delay-600 flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link
-              to="/services"
+              href="/services"
               className="group px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl hover:shadow-green-500/50 hover:scale-105 transition-all duration-300 flex items-center gap-2"
             >
               Nos Services
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
-              to="/contact"
+              href="/contact"
               className="px-8 py-4 border-2 border-green-600 text-green-700 rounded-xl font-semibold hover:bg-green-50 hover:scale-105 transition-all duration-300 backdrop-blur-sm"
             >
               Nous contacter
@@ -142,7 +145,7 @@ export default function Home() {
 
           <div className="fade-in opacity-0 translate-y-8 transition-all duration-1000 delay-800 text-center">
             <Link
-              to="/services"
+              href="/services"
               className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-green-500/50 hover:scale-105 transition-all duration-300"
             >
               En savoir plus
@@ -183,7 +186,7 @@ export default function Home() {
 
           <div className="fade-in opacity-0 translate-y-8 transition-all duration-1000 delay-800 text-center">
             <Link
-              to="/methode"
+              href="/methode"
               className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-green-500/50 hover:scale-105 transition-all duration-300"
             >
               Découvrir notre méthode
@@ -213,9 +216,11 @@ export default function Home() {
               >
                 <div className="bg-white rounded-2xl overflow-hidden shadow-lg border border-green-200/50 hover:shadow-2xl hover:shadow-green-500/20 hover:-translate-y-2 transition-all duration-500">
                   <div className="relative overflow-hidden h-48">
-                    <img
+                    <Image
                       src={project.image}
                       alt={project.title}
+                      width={800}
+                      height={600}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-green-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-center pb-4">
@@ -233,7 +238,7 @@ export default function Home() {
 
           <div className="fade-in opacity-0 translate-y-8 transition-all duration-1000 delay-800 text-center">
             <Link
-              to="/portfolio"
+              href="/portfolio"
               className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-green-500/50 hover:scale-105 transition-all duration-300"
             >
               Voir tous nos projets
@@ -260,7 +265,7 @@ export default function Home() {
           </p>
 
           <Link
-            to="/contact"
+            href="/contact"
             className="fade-in opacity-0 translate-y-8 transition-all duration-1000 delay-400 inline-flex items-center gap-3 px-10 py-5 bg-white text-green-700 rounded-xl font-bold text-lg shadow-2xl hover:shadow-3xl hover:scale-105 hover:bg-green-50 transition-all duration-300"
           >
             Démarrer Votre Projet
