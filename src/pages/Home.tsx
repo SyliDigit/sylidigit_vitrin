@@ -179,7 +179,7 @@ export default function Home() {
 
           <h1
             key={`title-${currentSlide}`}
-            className="fade-in opacity-0 translate-y-8 transition-all duration-1000 delay-200 animate-in text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-green-900 via-green-700 to-yellow-400 bg-clip-text text-transparent leading-tight drop-shadow-2xl"
+            className="fade-in opacity-0 translate-y-8 transition-all duration-1000 delay-200 animate-in text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-lime-300 via-yellow-400 to-amber-600 bg-clip-text text-transparent leading-tight drop-shadow-2xl"
             style={{ textShadow: '0 0 40px rgba(250, 204, 21, 0.5)' }}
           >
             {slides[currentSlide].title}
