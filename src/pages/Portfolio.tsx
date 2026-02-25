@@ -1,10 +1,12 @@
 'use client';
 
-import { Target, Eye, MapPin, Users, Award, Heart, Zap, Globe2, HeadphonesIcon, Layers, TrendingUp } from 'lucide-react';
-import { useEffect, useRef } from 'react';
+import { ExternalLink, ShoppingCart, Smartphone, Building2, Calendar, TrendingUp, Award, CheckCircle, ArrowRight, Code2, Palette, Zap } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 
-export default function About() {
+export default function Portfolio() {
   const pageRef = useRef<HTMLDivElement>(null);
+  const [selectedCategory, setSelectedCategory] = useState('Tous');
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -26,62 +28,164 @@ export default function About() {
     return () => observer.disconnect();
   }, []);
 
-  const values = [
+  const categories = ['Tous', 'E-commerce', 'Application Mobile', 'Site Web', 'Plateforme SaaS'];
+
+  const projects = [
     {
+      title: 'GuinéeShop',
+      category: 'E-commerce',
+      description: 'Plateforme e-commerce complète pour la vente en ligne de produits locaux avec système de paiement mobile intégré.',
+      image: 'https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg',
+      tags: ['Next.js', 'React', 'Stripe', 'PostgreSQL'],
+      icon: ShoppingCart,
+      stats: [
+        { label: 'Utilisateurs', value: '10K+' },
+        { label: 'Transactions', value: '50K+' },
+        { label: 'Taux de conversion', value: '3.2%' }
+      ],
+      features: [
+        'Catalogue produits avec recherche avancée',
+        'Panier et checkout optimisés',
+        'Paiement mobile money et cartes bancaires',
+        'Dashboard vendeur avec analytics',
+        'Gestion des stocks en temps réel',
+        'Notifications SMS et email'
+      ],
+      results: 'Augmentation de 250% des ventes en ligne en 6 mois',
+      duration: '3 mois',
+      client: 'Entreprise de distribution'
+    },
+    {
+      title: 'MyHealth',
+      category: 'Application Mobile',
+      description: 'Application mobile de gestion de rendez-vous médicaux et dossiers patients pour cliniques et hôpitaux.',
+      image: 'https://images.pexels.com/photos/4386467/pexels-photo-4386467.jpeg',
+      tags: ['React Native', 'Node.js', 'MongoDB', 'Socket.io'],
+      icon: Smartphone,
+      stats: [
+        { label: 'Téléchargements', value: '25K+' },
+        { label: 'Rendez-vous gérés', value: '100K+' },
+        { label: 'Note App Store', value: '4.8/5' }
+      ],
+      features: [
+        'Prise de rendez-vous en ligne',
+        'Dossier médical électronique',
+        'Rappels automatiques par SMS',
+        'Visioconférence pour téléconsultations',
+        'Historique des consultations',
+        'Gestion des ordonnances'
+      ],
+      results: 'Réduction de 60% du temps d\'attente et amélioration de la satisfaction patient',
+      duration: '4 mois',
+      client: 'Réseau de cliniques privées'
+    },
+    {
+      title: 'BizConnect',
+      category: 'Plateforme SaaS',
+      description: 'Plateforme SaaS de gestion d\'entreprise tout-en-un: CRM, facturation, gestion de projets et comptabilité.',
+      image: 'https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg',
+      tags: ['React', 'TypeScript', 'Supabase', 'Tailwind'],
+      icon: Building2,
+      stats: [
+        { label: 'Entreprises clientes', value: '150+' },
+        { label: 'Utilisateurs actifs', value: '2K+' },
+        { label: 'Temps économisé', value: '40%' }
+      ],
+      features: [
+        'Gestion des contacts et leads',
+        'Facturation et devis automatisés',
+        'Suivi des projets et tâches',
+        'Tableaux de bord personnalisables',
+        'Rapports financiers en temps réel',
+        'Collaboration d\'équipe'
+      ],
+      results: 'Augmentation de 45% de la productivité des équipes commerciales',
+      duration: '5 mois',
+      client: 'PME africaines'
+    },
+    {
+      title: 'EventPro Guinée',
+      category: 'Site Web',
+      description: 'Plateforme de billetterie et gestion d\'événements avec paiement mobile et QR codes.',
+      image: 'https://images.pexels.com/photos/1190297/pexels-photo-1190297.jpeg',
+      tags: ['Next.js', 'Stripe', 'QR Code', 'Email'],
+      icon: Calendar,
+      stats: [
+        { label: 'Événements gérés', value: '500+' },
+        { label: 'Billets vendus', value: '75K+' },
+        { label: 'Organisateurs', value: '200+' }
+      ],
+      features: [
+        'Création d\'événements en quelques clics',
+        'Vente de billets en ligne',
+        'Billets électroniques avec QR code',
+        'Check-in automatisé à l\'entrée',
+        'Analytics détaillés des ventes',
+        'Marketing email intégré'
+      ],
+      results: 'Digitalisation complète de la billetterie avec élimination des fraudes',
+      duration: '2.5 mois',
+      client: 'Organisateurs d\'événements'
+    },
+    {
+      title: 'AgriMarket',
+      category: 'E-commerce',
+      description: 'Marketplace connectant directement agriculteurs et acheteurs avec suivi des livraisons.',
+      image: 'https://images.pexels.com/photos/1300550/pexels-photo-1300550.jpeg',
+      tags: ['Vue.js', 'Laravel', 'MySQL', 'Maps API'],
+      icon: TrendingUp,
+      stats: [
+        { label: 'Agriculteurs', value: '1.5K+' },
+        { label: 'Commandes', value: '25K+' },
+        { label: 'Économies clients', value: '30%' }
+      ],
+      features: [
+        'Profils agriculteurs avec produits',
+        'Système de commande en gros',
+        'Suivi de livraison en temps réel',
+        'Paiement sécurisé échelonné',
+        'Évaluations et avis',
+        'Chat direct avec les producteurs'
+      ],
+      results: 'Augmentation de 200% des revenus des agriculteurs participants',
+      duration: '4 mois',
+      client: 'Coopérative agricole'
+    },
+    {
+      title: 'EduLearn',
+      category: 'Plateforme SaaS',
+      description: 'Plateforme d\'apprentissage en ligne avec cours vidéo, quiz et certificats.',
+      image: 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg',
+      tags: ['React', 'Node.js', 'AWS', 'WebRTC'],
       icon: Award,
-      title: 'Excellence',
-      description: 'Nous visons l\'excellence dans chaque ligne de code, chaque design, et chaque interaction client.'
-    },
-    {
-      icon: Heart,
-      title: 'Passion',
-      description: 'Nous sommes passionnés par la technologie et son pouvoir de transformer les entreprises africaines.'
-    },
-    {
-      icon: Users,
-      title: 'Collaboration',
-      description: 'Le succès de nos clients est notre succès. Nous travaillons main dans la main avec vous.'
-    },
-    {
-      icon: Zap,
-      title: 'Innovation',
-      description: 'Nous restons à la pointe des technologies pour offrir des solutions modernes et performantes.'
+      stats: [
+        { label: 'Étudiants', value: '8K+' },
+        { label: 'Cours disponibles', value: '250+' },
+        { label: 'Taux de complétion', value: '78%' }
+      ],
+      features: [
+        'Bibliothèque de cours vidéo HD',
+        'Quiz interactifs et examens',
+        'Certificats automatiques',
+        'Forums de discussion',
+        'Suivi de progression',
+        'Classes virtuelles en direct'
+      ],
+      results: 'Formation de 8000+ professionnels en 18 mois',
+      duration: '5 mois',
+      client: 'Instituts de formation'
     }
   ];
 
-  const reasons = [
-    {
-      icon: Award,
-      title: 'Expertise Technique',
-      description: 'Maîtrise des technologies modernes et meilleures pratiques du développement'
-    },
-    {
-      icon: Globe2,
-      title: 'Compréhension du Marché Local',
-      description: 'Connaissance approfondie des besoins et défis spécifiques au contexte africain'
-    },
-    {
-      icon: HeadphonesIcon,
-      title: 'Support Fiable',
-      description: 'Accompagnement continu et assistance technique réactive en français'
-    },
-    {
-      icon: Layers,
-      title: 'Technologies Modernes',
-      description: 'Solutions basées sur les frameworks et outils les plus performants'
-    },
-    {
-      icon: TrendingUp,
-      title: 'Approche Orientée Résultats',
-      description: 'Focus sur la création de valeur mesurable pour votre entreprise'
-    }
-  ];
+  const filteredProjects = selectedCategory === 'Tous'
+    ? projects
+    : projects.filter(p => p.category === selectedCategory);
 
   const stats = [
-    { value: '50+', label: 'Projets Réalisés' },
-    { value: '30+', label: 'Clients Satisfaits' },
-    { value: '5', label: 'Ans d\'Expérience' },
-    { value: '98%', label: 'Taux de Satisfaction' }
+    { value: '50+', label: 'Projets Livrés', icon: CheckCircle },
+    { value: '30+', label: 'Clients Satisfaits', icon: Award },
+    { value: '250K+', label: 'Utilisateurs Finaux', icon: TrendingUp },
+    { value: '98%', label: 'Taux de Satisfaction', icon: Award }
   ];
 
   return (
@@ -94,94 +198,30 @@ export default function About() {
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
           <h1 className="fade-in opacity-0 translate-y-8 transition-all duration-1000 text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-green-700 via-emerald-600 to-green-500 bg-clip-text text-transparent">
-            À Propos de SyliDigit
+            Notre Portfolio
           </h1>
           <p className="fade-in opacity-0 translate-y-8 transition-all duration-1000 delay-200 text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto">
-            Votre partenaire de confiance pour la transformation digitale en Afrique
+            Découvrez nos projets réussis qui ont transformé des entreprises africaines
           </p>
         </div>
       </section>
 
-      <section className="py-24 bg-white">
+      <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="fade-in opacity-0 translate-y-8 transition-all duration-1000 text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-green-700 to-emerald-600 bg-clip-text text-transparent">
-                Qui Sommes-Nous ?
-              </h2>
-              <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
-                <p className="fade-in opacity-0 translate-y-8 transition-all duration-1000 delay-200">
-                  <span className="font-bold text-green-700">SyliDigit</span> est une entreprise de développement digital basée en Guinée, spécialisée dans la création de solutions technologiques innovantes adaptées au contexte africain.
-                </p>
-                <p className="fade-in opacity-0 translate-y-8 transition-all duration-1000 delay-300">
-                  Fondée par des développeurs passionnés, notre mission est de démocratiser l'accès aux technologies modernes et d'accompagner les entreprises africaines dans leur transformation digitale.
-                </p>
-                <p className="fade-in opacity-0 translate-y-8 transition-all duration-1000 delay-400">
-                  Nous combinons expertise technique internationale et compréhension profonde des besoins locaux pour offrir des solutions qui génèrent un impact réel et mesurable.
-                </p>
-              </div>
-
-              <div className="fade-in opacity-0 translate-y-8 transition-all duration-1000 delay-500 mt-8 flex items-start gap-4 p-6 bg-gradient-to-br from-green-50 to-emerald-50/50 rounded-xl border border-green-200/50">
-                <MapPin className="w-8 h-8 text-green-600 flex-shrink-0 mt-1" />
-                <div>
-                  <h3 className="font-bold text-xl text-gray-800 mb-2">Basé à Conakry, Guinée</h3>
-                  <p className="text-gray-700">
-                    Au cœur de l'Afrique de l'Ouest, nous servons les entreprises locales et internationales avec la même excellence.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-6">
-              <div className="fade-in opacity-0 translate-y-8 transition-all duration-1000 delay-600 bg-white rounded-2xl p-8 shadow-xl border border-green-200/50 hover:shadow-2xl hover:shadow-green-500/20 transition-all duration-500">
-                <div className="w-16 h-16 bg-gradient-to-br from-green-600 to-emerald-600 rounded-xl flex items-center justify-center mb-6 shadow-lg">
-                  <Eye className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold mb-4 text-gray-800">Notre Vision</h3>
-                <p className="text-gray-700 leading-relaxed text-lg">
-                  Devenir le partenaire digital de référence en Afrique de l'Ouest, en créant des solutions technologiques qui transforment les entreprises et améliorent la vie des citoyens africains.
-                </p>
-              </div>
-
-              <div className="fade-in opacity-0 translate-y-8 transition-all duration-1000 delay-700 bg-white rounded-2xl p-8 shadow-xl border border-green-200/50 hover:shadow-2xl hover:shadow-green-500/20 transition-all duration-500">
-                <div className="w-16 h-16 bg-gradient-to-br from-green-600 to-emerald-600 rounded-xl flex items-center justify-center mb-6 shadow-lg">
-                  <Target className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold mb-4 text-gray-800">Notre Mission</h3>
-                <p className="text-gray-700 leading-relaxed text-lg">
-                  Accompagner les entreprises africaines dans leur transformation digitale en leur offrant des solutions sur mesure, performantes et évolutives qui répondent à leurs défis spécifiques et créent de la valeur durable.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-24 bg-gradient-to-br from-green-50 via-emerald-50/30 to-yellow-50/20">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="fade-in opacity-0 translate-y-8 transition-all duration-1000 text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-700 to-emerald-600 bg-clip-text text-transparent">
-              Nos Valeurs
-            </h2>
-            <p className="fade-in opacity-0 translate-y-8 transition-all duration-1000 delay-200 text-xl text-gray-600 max-w-2xl mx-auto">
-              Les principes qui guident notre travail au quotidien
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((value, index) => {
-              const Icon = value.icon;
+          <div className="grid md:grid-cols-4 gap-8">
+            {stats.map((stat, index) => {
+              const Icon = stat.icon;
               return (
                 <div
                   key={index}
-                  className="fade-in opacity-0 translate-y-8 transition-all duration-1000 bg-white rounded-xl p-8 border border-green-200/50 hover:shadow-xl hover:shadow-green-500/20 hover:-translate-y-2 transition-all duration-500"
-                  style={{ transitionDelay: `${(index + 1) * 150}ms` }}
+                  className="fade-in opacity-0 translate-y-8 transition-all duration-1000 text-center bg-gradient-to-br from-green-50 to-emerald-50/50 rounded-xl p-6 border border-green-200/50"
+                  style={{ transitionDelay: `${index * 100}ms` }}
                 >
-                  <div className="w-14 h-14 bg-gradient-to-br from-green-600 to-emerald-600 rounded-xl flex items-center justify-center mb-4 mx-auto shadow-lg">
-                    <Icon className="w-7 h-7 text-white" />
+                  <Icon className="w-8 h-8 text-green-600 mx-auto mb-3" />
+                  <div className="text-4xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-1">
+                    {stat.value}
                   </div>
-                  <h3 className="text-xl font-bold mb-3 text-gray-800 text-center">{value.title}</h3>
-                  <p className="text-gray-600 leading-relaxed text-center">{value.description}</p>
+                  <div className="text-gray-700 font-medium text-sm">{stat.label}</div>
                 </div>
               );
             })}
@@ -189,63 +229,145 @@ export default function About() {
         </div>
       </section>
 
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-gradient-to-br from-green-50 via-emerald-50/30 to-yellow-50/20">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="fade-in opacity-0 translate-y-8 transition-all duration-1000 text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-700 to-emerald-600 bg-clip-text text-transparent">
-              Quelques Chiffres
-            </h2>
-            <p className="fade-in opacity-0 translate-y-8 transition-all duration-1000 delay-200 text-xl text-gray-600 max-w-2xl mx-auto">
-              Notre impact en quelques statistiques
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <div
-                key={index}
-                className="fade-in opacity-0 translate-y-8 transition-all duration-1000 text-center bg-gradient-to-br from-green-50 to-emerald-50/50 rounded-xl p-8 border border-green-200/50 hover:shadow-xl hover:shadow-green-500/20 hover:-translate-y-2 transition-all duration-500"
-                style={{ transitionDelay: `${(index + 1) * 150}ms` }}
+          <div className="fade-in opacity-0 translate-y-8 transition-all duration-1000 mb-12 flex flex-wrap justify-center gap-4">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
+                  selectedCategory === category
+                    ? 'bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg scale-105'
+                    : 'bg-white text-gray-700 hover:bg-green-50 border border-green-200/50'
+                }`}
               >
-                <div className="text-5xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-gray-700 font-semibold">{stat.label}</div>
-              </div>
+                {category}
+              </button>
             ))}
           </div>
-        </div>
-      </section>
 
-      <section className="py-24 bg-gradient-to-br from-green-50 via-emerald-50/30 to-yellow-50/20">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="fade-in opacity-0 translate-y-8 transition-all duration-1000 text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-700 to-emerald-600 bg-clip-text text-transparent">
-              Pourquoi Choisir SyliDigit ?
-            </h2>
-            <p className="fade-in opacity-0 translate-y-8 transition-all duration-1000 delay-200 text-xl text-gray-600 max-w-2xl mx-auto">
-              Les raisons qui font de nous le partenaire idéal
-            </p>
-          </div>
+          <div className="space-y-24">
+            {filteredProjects.map((project, index) => {
+              const Icon = project.icon;
+              const isEven = index % 2 === 0;
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {reasons.map((reason, index) => {
-              const Icon = reason.icon;
               return (
                 <div
                   key={index}
-                  className="fade-in opacity-0 translate-y-8 transition-all duration-1000 bg-white rounded-xl p-8 border border-green-200/50 hover:shadow-xl hover:shadow-green-500/20 hover:-translate-y-2 transition-all duration-500"
-                  style={{ transitionDelay: `${(index + 1) * 150}ms` }}
+                  className={`fade-in opacity-0 translate-y-8 transition-all duration-1000 grid lg:grid-cols-2 gap-12 items-center`}
+                  style={{ transitionDelay: `${index * 100}ms` }}
                 >
-                  <div className="w-14 h-14 bg-gradient-to-br from-green-600 to-emerald-600 rounded-xl flex items-center justify-center mb-4 shadow-lg">
-                    <Icon className="w-7 h-7 text-white" />
+                  <div className={`${isEven ? '' : 'lg:order-2'}`}>
+                    <div className="relative rounded-2xl overflow-hidden shadow-2xl group">
+                      <div className="relative h-96">
+                        <Image
+                          src={project.image}
+                          alt={project.title}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                      </div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                      <div className="absolute bottom-0 left-0 right-0 p-6">
+                        <div className="flex items-center gap-3 mb-2">
+                          <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
+                            <Icon className="w-6 h-6 text-green-600" />
+                          </div>
+                          <span className="text-white font-semibold text-sm bg-green-600/80 px-3 py-1 rounded-full">
+                            {project.category}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <h3 className="text-xl font-bold mb-3 text-gray-800">{reason.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{reason.description}</p>
+
+                  <div className={`${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
+                    <h3 className="text-3xl md:text-4xl font-bold mb-3 text-gray-800">
+                      {project.title}
+                    </h3>
+                    <p className="text-lg text-gray-700 mb-4 leading-relaxed">
+                      {project.description}
+                    </p>
+
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {project.tags.map((tag, i) => (
+                        <span
+                          key={i}
+                          className="bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-4 mb-6">
+                      {project.stats.map((stat, i) => (
+                        <div key={i} className="bg-white rounded-lg p-4 border border-green-200/50 text-center">
+                          <div className="text-2xl font-bold text-green-600">{stat.value}</div>
+                          <div className="text-xs text-gray-600 mt-1">{stat.label}</div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="bg-white rounded-xl p-6 border border-green-200/50 shadow-lg mb-6">
+                      <h4 className="font-bold text-lg text-gray-800 mb-4 flex items-center gap-2">
+                        <Zap className="w-5 h-5 text-green-600" />
+                        Fonctionnalités clés
+                      </h4>
+                      <div className="grid md:grid-cols-2 gap-3">
+                        {project.features.map((feature, i) => (
+                          <div key={i} className="flex items-start gap-2">
+                            <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0 mt-1" />
+                            <span className="text-sm text-gray-700">{feature}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="bg-gradient-to-r from-green-50 to-emerald-50/50 rounded-xl p-6 border border-green-200/50 mb-4">
+                      <div className="flex items-start gap-3">
+                        <TrendingUp className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
+                        <div>
+                          <h4 className="font-bold text-gray-800 mb-1">Résultats</h4>
+                          <p className="text-gray-700">{project.results}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-4 text-sm text-gray-600">
+                      <div className="flex items-center gap-2">
+                        <Calendar className="w-4 h-4" />
+                        <span>Durée: {project.duration}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Building2 className="w-4 h-4" />
+                        <span>{project.client}</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               );
             })}
           </div>
+        </div>
+      </section>
+
+      <section className="py-24 bg-gradient-to-br from-green-600 to-emerald-600 text-white">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="fade-in opacity-0 translate-y-8 transition-all duration-1000 text-4xl md:text-5xl font-bold mb-6">
+            Prêt à créer votre succès ?
+          </h2>
+          <p className="fade-in opacity-0 translate-y-8 transition-all duration-1000 delay-200 text-xl mb-8 opacity-90">
+            Transformons ensemble votre vision en réalité digitale
+          </p>
+          <a
+            href="/contact"
+            className="fade-in opacity-0 translate-y-8 transition-all duration-1000 delay-300 inline-flex items-center gap-2 bg-white text-green-600 px-8 py-4 rounded-full font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300"
+          >
+            Démarrer votre projet
+            <ArrowRight className="w-5 h-5" />
+          </a>
         </div>
       </section>
     </div>
