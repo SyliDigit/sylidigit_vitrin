@@ -863,6 +863,11 @@ video {
   margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1rem * var(--tw-space-y-reverse));
 }
+.space-y-24 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(6rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(6rem * var(--tw-space-y-reverse));
+}
 .overflow-hidden {
   overflow: hidden;
 }
@@ -1014,6 +1019,11 @@ video {
   --tw-gradient-to: rgb(250 204 21 / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
+.from-green-100 {
+  --tw-gradient-from: #dcfce7 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(220 252 231 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
 .via-emerald-50\/30 {
   --tw-gradient-to: rgb(236 253 245 / 0)  var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), rgb(236 253 245 / 0.3) var(--tw-gradient-via-position), var(--tw-gradient-to);
@@ -1075,6 +1085,9 @@ video {
 }
 .to-yellow-50\/20 {
   --tw-gradient-to: rgb(254 252 232 / 0.2) var(--tw-gradient-to-position);
+}
+.to-emerald-100 {
+  --tw-gradient-to: #d1fae5 var(--tw-gradient-to-position);
 }
 .bg-clip-text {
   -webkit-background-clip: text;
@@ -1197,6 +1210,10 @@ video {
   font-size: 1.25rem;
   line-height: 1.75rem;
 }
+.text-6xl {
+  font-size: 3.75rem;
+  line-height: 1;
+}
 .font-bold {
   font-weight: 700;
 }
@@ -1254,6 +1271,9 @@ video {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+.text-green-600\/20 {
+  color: rgb(22 163 74 / 0.2);
 }
 .opacity-0 {
   opacity: 0;
@@ -1319,6 +1339,11 @@ video {
 }
 .transition-transform {
   transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.transition {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
@@ -1635,6 +1660,14 @@ video {
 }
 
 @media (min-width: 1024px) {
+
+  .lg\:order-1 {
+    order: 1;
+  }
+
+  .lg\:order-2 {
+    order: 2;
+  }
 
   .lg\:col-start-1 {
     grid-column-start: 1;
