@@ -83,6 +83,7 @@ export default function Footer() {
               <li className="flex items-start gap-3 text-blue-200">
                 <Phone className="w-5 h-5 flex-shrink-0 mt-1" />
                 <span>+224 629 29 17 36</span>
+                <span>+224 629 29 17 36</span>
               </li>
               <li className="flex items-start gap-3 text-blue-200">
                 <Mail className="w-5 h-5 flex-shrink-0 mt-1" />
@@ -131,7 +132,7 @@ export default function Footer() {
           </div>
 
         </div>
-        
+
       </div>
     </footer>
   );
